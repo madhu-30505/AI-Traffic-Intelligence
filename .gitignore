@@ -1,22 +1,66 @@
-# Virtual environment
-.venv/
+# ==============================
+# Python
+# ==============================
 
-# Python cache
+.venv/
 __pycache__/
 *.py[cod]
+*.pyo
 
-# Environment variables
+# ==============================
+# Environment / Secrets
+# ==============================
+
 .env
+.env.*
+!.env.example
 
+# ==============================
 # IDE
+# ==============================
+
 .vscode/
 .idea/
 
-# OS files
+# ==============================
+# OS
+# ==============================
+
 .DS_Store
 Thumbs.db
 
-# Python packaging
+# ==============================
+# Python Packaging
+# ==============================
+
 *.egg-info/
 dist/
 build/
+
+# ==============================
+# YOLO Model Weights
+# ==============================
+
+*.pt
+*.onnx
+
+# ==============================
+# Generated Outputs
+# ==============================
+
+outputs/
+
+# ==============================
+# Large / Raw Traffic Videos
+# ==============================
+
+data/videos/
+data/*.mp4
+data/test_traffic.mp4
+
+# ==============================
+# Temporary Files
+# ==============================
+
+*.tmp
+*.log
