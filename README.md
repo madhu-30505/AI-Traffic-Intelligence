@@ -1,33 +1,41 @@
 # 🚦 AI Traffic Intelligence
 
-An end-to-end **AI-powered traffic monitoring and forecasting system** that uses Computer Vision, YOLO object detection, vehicle tracking, traffic analytics, Machine Learning, automated alerts, and Streamlit to analyze traffic conditions and predict near-future congestion.
-
----
+An end-to-end **AI-powered traffic monitoring and forecasting system** that combines **Computer Vision, YOLO object detection, BoT-SORT tracking, traffic analytics, Machine Learning, automated alerts, and Streamlit** to analyze traffic conditions and predict near-future congestion.
 
 ## 📌 Project Overview
 
-Traffic congestion is a major problem in urban areas. Traditional traffic monitoring systems mainly observe current traffic conditions, while this project combines **Computer Vision and Machine Learning** to analyze traffic and provide an early indication of future congestion.
+Traffic congestion is a major challenge in urban environments. Traditional traffic monitoring systems primarily focus on understanding the current traffic situation.
 
-The system processes traffic video, detects and tracks vehicles, calculates traffic metrics, stores historical traffic data, forecasts future congestion, and generates traffic alerts through an interactive dashboard.
+**AI Traffic Intelligence** extends this approach by combining computer vision and machine learning to:
+
+* Detect and track vehicles from traffic video
+* Measure traffic characteristics
+* Analyze congestion levels
+* Build time-series traffic features
+* Forecast near-future congestion
+* Generate automated traffic alerts
+* Visualize traffic insights through an interactive dashboard
+
+The project demonstrates an end-to-end AI/ML workflow from **video processing → data generation → feature engineering → model training → prediction → alert generation → dashboard visualization**.
 
 ---
 
-## 🎯 Objectives
+## 🎯 Key Objectives
 
-* Detect vehicles from traffic video.
-* Track vehicles across video frames.
-* Count vehicles by category.
-* Analyze traffic density within a Region of Interest (ROI).
-* Estimate approximate vehicle speed.
-* Detect vehicle movement direction.
-* Analyze traffic across different zones.
-* Identify traffic congestion.
-* Store historical traffic information.
-* Engineer time-series traffic features.
-* Forecast congestion approximately 5 seconds ahead.
-* Generate automated traffic alerts.
-* Visualize traffic information through a Streamlit dashboard.
-* Provide a single-command pipeline for the complete workflow.
+* Detect vehicles from traffic video
+* Track vehicles across video frames
+* Count vehicles by category
+* Analyze traffic density within a Region of Interest (ROI)
+* Estimate approximate vehicle speed
+* Detect vehicle movement direction
+* Analyze traffic across different zones
+* Calculate congestion scores
+* Store historical traffic information
+* Create time-series ML features
+* Forecast congestion approximately 5 seconds ahead
+* Generate automated traffic alerts
+* Visualize traffic metrics through Streamlit
+* Run the complete workflow using a single pipeline command
 
 ---
 
@@ -46,12 +54,12 @@ The system processes traffic video, detects and tracks vehicles, calculates traf
                      YOLO Object Detection
                               │
                               ▼
-                      Vehicle Tracking
+                      BoT-SORT Tracking
                               │
                ┌──────────────┼──────────────┐
                ▼              ▼              ▼
           Vehicle Count    Speed          Direction
-               │          Estimation        Analysis
+                           Estimation        Analysis
                │              │              │
                └──────────────┼──────────────┘
                               ▼
@@ -63,7 +71,7 @@ The system processes traffic video, detects and tracks vehicles, calculates traf
                     Congestion Detection
                               │
                               ▼
-                    Historical Data (CSV)
+                    Historical Data Logging
                               │
                               ▼
                     1-Second Aggregation
@@ -76,7 +84,7 @@ The system processes traffic video, detects and tracks vehicles, calculates traf
                               │
                      ┌────────┴────────┐
                      ▼                 ▼
-                Prediction         Model Evaluation
+                Prediction         Evaluation
                      │
                      ▼
                 Alert Engine
@@ -92,7 +100,7 @@ The system processes traffic video, detects and tracks vehicles, calculates traf
 ```text
 Traffic Video
       ↓
-Frame Extraction
+Frame Processing
       ↓
 YOLO Vehicle Detection
       ↓
@@ -133,13 +141,13 @@ Streamlit Dashboard
 
 ---
 
-## 🧠 AI & Machine Learning
+## 🧠 AI & Computer Vision
 
-### Computer Vision
+### YOLO Object Detection
 
-The system uses **YOLO** for real-time object detection.
+The system uses **YOLO** for real-time vehicle detection from traffic video.
 
-Vehicle categories include:
+The detection pipeline can identify common traffic classes such as:
 
 * Cars
 * Motorcycles
@@ -147,15 +155,15 @@ Vehicle categories include:
 * Buses
 * Trucks
 
-### Vehicle Tracking
+### BoT-SORT Multi-Object Tracking
 
-**BoT-SORT** is used to maintain vehicle identities across frames.
+**BoT-SORT** is used to maintain vehicle identities across consecutive frames.
 
-This allows the system to associate observations with individual tracked vehicles.
+Tracking enables the system to associate observations with individual vehicles and supports downstream analysis such as counting, speed estimation, and direction detection.
 
-### Traffic Metrics
+### Traffic Analytics
 
-The system calculates:
+The computer vision pipeline generates:
 
 * Vehicle count
 * Average vehicle speed
@@ -169,9 +177,7 @@ The system calculates:
 
 ## 🤖 Traffic Congestion Engine
 
-Traffic congestion is determined using multiple traffic signals rather than vehicle count alone.
-
-The prototype combines:
+The congestion engine combines multiple traffic signals instead of relying only on vehicle count.
 
 ```text
 Vehicle Count
@@ -185,7 +191,7 @@ Congestion Score
 Traffic Level
 ```
 
-Traffic levels:
+The prototype categorizes traffic into:
 
 ```text
 NORMAL
@@ -193,13 +199,15 @@ MODERATE
 HEAVY
 ```
 
+This provides a more meaningful representation of traffic conditions than vehicle count alone.
+
 ---
 
 ## 🔮 Future Traffic Forecasting
 
-The system aggregates traffic information into **1-second intervals**.
+Traffic observations are aggregated into **1-second intervals** and transformed into time-series features.
 
-Time-series features include:
+### Features
 
 * Current vehicle count
 * Current average speed
@@ -210,46 +218,50 @@ Time-series features include:
 * Vehicle count changes
 * Speed changes
 
-The forecasting target is the traffic congestion level approximately **5 seconds into the future**.
+### Forecasting Target
+
+The model predicts the traffic congestion level approximately **5 seconds into the future**.
+
+The forecasting workflow uses a **time-based train/test split**, preventing random mixing of past and future observations.
 
 ---
 
 ## 🧪 Machine Learning Models
 
-Three classification models were evaluated:
+Three classification algorithms were evaluated:
 
-### 1. Logistic Regression
+### Logistic Regression
 
-Used as a baseline classification model.
+Used as the baseline classification model.
 
-### 2. Random Forest
+### Random Forest
 
 Used to capture nonlinear relationships between traffic features.
 
-### 3. Gradient Boosting
+### Gradient Boosting
 
 Used as an additional ensemble learning approach.
 
-The evaluation uses a **time-based train/test split** to avoid randomly mixing past and future observations.
-
 The current pipeline selected **Random Forest** as the stored forecasting model.
+
+### Evaluation
+
+The current prototype uses a very small demonstration dataset, so evaluation metrics should be interpreted as **pipeline validation rather than production-level model performance**.
 
 ---
 
-## 📊 Current Prototype Results
+## 📊 Prototype Results
 
 The current demonstration uses a **39-second traffic video**.
 
-Dataset:
-
 ```text
-Video duration: 39 seconds
-Frame rate: 30 FPS
-Total frames: 1170
-1-second observations: 39
+Video Duration       : 39 seconds
+Frame Rate            : 30 FPS
+Total Frames          : 1170
+1-Second Observations : 39
 ```
 
-Frame-level congestion distribution:
+### Frame-Level Congestion Distribution
 
 ```text
 NORMAL      897
@@ -257,27 +269,25 @@ MODERATE    263
 HEAVY        10
 ```
 
-The current forecasting dataset is small and highly imbalanced.
-
-Therefore, the current model results should be interpreted as **pipeline validation rather than production-level forecasting performance**.
-
-The latest evaluation produced:
+### Forecasting Evaluation
 
 ```text
-Test samples: 6
+Test Samples: 6
 
 Random Forest:
-Accuracy:          0.83
-Balanced Accuracy: 0.50
+Accuracy          : 0.83
+Balanced Accuracy : 0.50
 ```
 
-The 83% accuracy should **not** be interpreted as an 83% real-world prediction accuracy because the test set is extremely small and does not contain a balanced representation of all congestion classes.
+Because the test set is extremely small and the classes are imbalanced, the reported accuracy **should not be interpreted as real-world forecasting accuracy**.
+
+The results demonstrate that the complete data-processing, feature-engineering, training, evaluation, and prediction pipeline is functioning correctly.
 
 ---
 
 ## 🚨 Traffic Alert System
 
-The alert engine converts model predictions into actionable traffic information.
+The alert engine converts predicted traffic conditions into actionable information.
 
 Example:
 
@@ -293,13 +303,13 @@ Monitor traffic closely and consider alternate routes
 if congestion increases.
 ```
 
-The system can produce different alert levels depending on predicted traffic conditions.
+Alert levels and recommendations are generated according to the predicted traffic condition.
 
 ---
 
 ## 📊 Streamlit Dashboard
 
-The dashboard provides:
+The interactive Streamlit dashboard provides:
 
 ### Current Traffic Status
 
@@ -338,43 +348,17 @@ The dashboard provides:
 
 ## 🛠️ Technologies Used
 
-### Programming
-
-* Python
-
-### Computer Vision
-
-* OpenCV
-* YOLO
-* BoT-SORT
-
-### Data Processing
-
-* NumPy
-* Pandas
-
-### Machine Learning
-
-* Scikit-learn
-* Logistic Regression
-* Random Forest
-* Gradient Boosting
-
-### Visualization
-
-* Matplotlib
-* Streamlit
-
-### Model & Data Storage
-
-* Joblib
-* CSV
-
-### Development
-
-* Git
-* GitHub
-* Python Virtual Environment
+| Category         | Technologies                                          |
+| ---------------- | ----------------------------------------------------- |
+| Programming      | Python                                                |
+| Computer Vision  | OpenCV, YOLO, BoT-SORT                                |
+| Data Processing  | NumPy, Pandas                                         |
+| Machine Learning | Scikit-learn                                          |
+| ML Models        | Logistic Regression, Random Forest, Gradient Boosting |
+| Visualization    | Matplotlib, Streamlit                                 |
+| Model Storage    | Joblib                                                |
+| Data Storage     | CSV                                                   |
+| Version Control  | Git, GitHub                                           |
 
 ---
 
@@ -384,37 +368,38 @@ The dashboard provides:
 AI-Traffic-Intelligence/
 │
 ├── data/
-│   ├── images/
-│   │   └── traffic.jpg
-│   ├── videos/
-│   │   └── traffic.mp4
-│   └── test_traffic.mp4
+│   └── images/
+│       └── traffic.jpg
 │
 ├── models/
 │   └── traffic_forecasting_model.pkl
 │
-├── outputs/
-│   ├── traffic_history_detailed.csv
-│   ├── traffic_1sec_dataset.csv
-│   ├── traffic_1sec_ml_features.csv
-│   ├── future_traffic_predictions.csv
-│   ├── traffic_alerts.csv
-│   └── model_metadata.csv
-│
 ├── src/
 │   ├── main.py
+│   ├── create_test_video.py
 │   ├── read_video.py
 │   ├── extract_frames.py
+│   ├── inspect_frame.py
 │   ├── yolo_detect.py
 │   ├── track_vehicles.py
 │   ├── count_vehicles.py
 │   ├── traffic_density.py
+│   ├── inspect_video.py
+│   ├── show_roi_frame.py
 │   ├── congestion_detection.py
 │   ├── speed_estimation.py
 │   ├── direction_detection.py
 │   ├── zone_analysis.py
 │   ├── improved_congestion.py
 │   ├── traffic_logger.py
+│   ├── analyze_traffic_data.py
+│   ├── prepare_ml_data.py
+│   ├── train_traffic_model.py
+│   ├── train_random_forest.py
+│   ├── prepare_future_prediction.py
+│   ├── train_future_model.py
+│   ├── prepare_traffic_features.py
+│   ├── train_advanced_traffic_model.py
 │   ├── create_1sec_dataset.py
 │   ├── prepare_1sec_ml_features.py
 │   ├── train_1sec_forecasting_models.py
@@ -428,49 +413,54 @@ AI-Traffic-Intelligence/
 ├── docs/
 ├── notebooks/
 ├── .gitignore
+├── requirements.txt
 └── README.md
 ```
+
+> **Note:** Generated outputs and large traffic video files are excluded from the GitHub repository through `.gitignore`. They can be generated locally by running the project pipeline with appropriate input video data.
 
 ---
 
 ## ⚙️ Installation
 
-Clone the repository:
+### 1. Clone the Repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/madhu-30505/AI-Traffic-Intelligence.git
 cd AI-Traffic-Intelligence
 ```
 
-Create a virtual environment:
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv .venv
 ```
 
-Activate it on Windows PowerShell:
+### 3. Activate the Environment
+
+Windows PowerShell:
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-Install dependencies:
+### 4. Install Dependencies
 
 ```bash
-pip install ultralytics opencv-python numpy pandas matplotlib scikit-learn joblib streamlit
+pip install -r requirements.txt
 ```
 
 ---
 
 ## ▶️ Run the Complete Pipeline
 
-The complete processing pipeline can be executed using a single command:
+The complete processing workflow can be executed with:
 
 ```powershell
 python src\run_pipeline.py
 ```
 
-This automatically performs:
+The pipeline performs:
 
 ```text
 Traffic Data Collection
@@ -498,7 +488,7 @@ After running the pipeline:
 streamlit run src\dashboard.py
 ```
 
-Then open the local Streamlit address shown in the terminal.
+Open the local Streamlit URL displayed in the terminal.
 
 ---
 
@@ -514,25 +504,38 @@ This is insufficient for reliable real-world traffic forecasting.
 
 ### Speed Estimation
 
-The current prototype uses an assumed pixel-to-distance calibration:
+The prototype uses an assumed pixel-to-distance calibration:
 
 ```text
 600 pixels ≈ 20 meters
 ```
 
-Therefore, speed values are approximate.
+Therefore, the calculated speed values are approximate.
 
-A production system would require camera calibration and road-specific reference measurements or homography.
+A production implementation would require proper camera calibration, road-specific reference measurements, or homography-based distance estimation.
 
 ### Forecasting Data
 
 The current forecasting dataset contains only 39 one-second observations and is highly imbalanced.
 
-More diverse traffic data is required for meaningful model validation.
+A production model would require significantly more diverse traffic data collected across different:
 
-### Tracking
+* Traffic volumes
+* Road conditions
+* Weather conditions
+* Times of day
+* Camera angles
+* Traffic patterns
 
-Vehicle tracking can occasionally experience ID switches or missed detections depending on video quality, camera angle, lighting, and vehicle occlusion.
+### Vehicle Tracking
+
+Tracking can occasionally experience ID switches or missed detections depending on:
+
+* Video quality
+* Camera angle
+* Lighting
+* Occlusion
+* Detection quality
 
 ---
 
@@ -540,7 +543,7 @@ Vehicle tracking can occasionally experience ID switches or missed detections de
 
 Potential production-level improvements include:
 
-* Collecting several hours/days of traffic video
+* Collecting several hours or days of traffic video
 * Multi-camera traffic monitoring
 * Lane-level traffic analysis
 * Polygon-based road zones
@@ -556,7 +559,7 @@ Potential production-level improvements include:
 * Cloud deployment
 * Docker containerization
 * MLOps monitoring
-* Model retraining pipeline
+* Automated model retraining
 * SMS/email notification integration
 * Route recommendation integration
 
@@ -564,7 +567,7 @@ Potential production-level improvements include:
 
 ## 💡 Key Learning Outcomes
 
-Through this project, the following concepts were implemented:
+This project provided hands-on implementation of:
 
 * Computer Vision
 * Object Detection
@@ -594,4 +597,4 @@ Computer Science Engineering Graduate | AI/ML & Data Science Enthusiast
 
 ## ⭐ Project Highlights
 
-> **An end-to-end AI traffic monitoring and forecasting prototype combining YOLO-based computer vision, vehicle tracking, traffic analytics, machine learning forecasting, automated alerts, and an interactive Streamlit dashboard.**
+> **An end-to-end AI traffic monitoring and forecasting prototype combining YOLO-based computer vision, BoT-SORT vehicle tracking, traffic analytics, machine learning forecasting, automated alerts, and an interactive Streamlit dashboard.**
