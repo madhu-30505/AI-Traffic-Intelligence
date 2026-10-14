@@ -50,8 +50,7 @@ streamlit run src/dashboard.py
 
 ## 👩‍💻 Author
 
-**Madhumitha M**
+**Madhumitha M**  
 Computer Science and Engineering | Aspiring AI/ML Engineer
 
 [GitHub](https://github.com/madhu-30505) | [LinkedIn](https://linkedin.com/in/madhu0505)
-
